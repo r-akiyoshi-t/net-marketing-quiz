@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ネットマーケティング検定 合格トレーニング</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============== ホーム画面 ============== -->
+  <section id="screen-home" class="screen">
+    <header class="home-header">
+      <h1 class="app-title">ネットマーケティング検定<br>合格トレーニング</h1>
+      <p class="exam-date">試験日：2026年11月8日</p>
+      <p class="exam-countdown" id="exam-countdown">試験まで あと -- 日</p>
+    </header>
+
+    <section class="stats-grid" aria-label="学習状況">
+      <div class="stat-card">
+        <p class="stat-label">総回答数</p>
+        <p class="stat-value" id="stat-total-answered">0</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">正答率</p>
+        <p class="stat-value" id="stat-accuracy">-</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">復習対象数</p>
+        <p class="stat-value" id="stat-weak-count">0</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">苦手分野</p>
+        <p class="stat-value stat-value--text" id="stat-weak-category">-</p>
+      </div>
+    </section>
+
+    <section class="mode-section" aria-label="学習モード">
+      <h2 class="section-title">学習モード</h2>
+      <div class="mode-buttons">
+        <button type="button" class="mode-btn" data-mode="five">
+          <span class="mode-btn__title">5問だけ</span>
+          <span class="mode-btn__desc">スキマ時間にサクッと</span>
+        </button>
+        <button type="button" class="mode-btn" data-mode="ten">
+          <span class="mode-btn__title">10問演習</span>
+          <span class="mode-btn__desc">標準の演習ボリューム</span>
+        </button>
+        <button type="button" class="mode-btn" data-mode="weak">
+          <span class="mode-btn__title">苦手だけ復習</span>
+          <span class="mode-btn__desc">間違えた問題を優先出題</span>
+        </button>
+        <button type="button" class="mode-btn" data-mode="abbr">
+          <span class="mode-btn__title">略語・指標特訓</span>
+          <span class="mode-btn__desc">STP・CTR・CVRなど</span>
+        </button>
+        <button type="button" class="mode-btn" id="mode-mock" data-mode="mock">
+          <span class="mode-btn__title">40問模擬試験</span>
+          <span class="mode-btn__desc">本番形式で実力チェック</span>
+        </button>
+        <p class="mode-note" id="mock-note" hidden></p>
+        <p class="mode-note" id="home-message" hidden></p>
+      </div>
+    </section>
+
+    <section class="chapter-section" aria-label="章別成績">
+      <h2 class="section-title">章別成績</h2>
+      <ul class="chapter-list" id="chapter-list"></ul>
+    </section>
+  </section>
+
+  <!-- ============== 問題画面 ============== -->
+  <section id="screen-quiz" class="screen" hidden>
+    <header class="quiz-header">
+      <button type="button" class="quiz-exit" id="quiz-exit" aria-label="ホームに戻る">✕</button>
+      <span class="quiz-progress" id="quiz-progress">1 / 5</span>
+    </header>
+
+    <p class="quiz-meta">
+      <span id="quiz-chapter"></span>
+      <span id="quiz-category"></span>
+      <span class="quiz-difficulty" id="quiz-difficulty"></span>
+    </p>
+
+    <h2 class="quiz-question" id="quiz-question"></h2>
+
+    <div class="quiz-choices" id="quiz-choices"></div>
+
+    <div class="quiz-feedback" id="quiz-feedback" hidden>
+      <p class="feedback-result" id="feedback-result"></p>
+      <p class="feedback-correct-answer" id="feedback-correct-answer"></p>
+      <p class="feedback-explanation" id="feedback-explanation"></p>
+
+      <div class="mistake-type-section" id="mistake-type-section" hidden>
+        <p class="mistake-type-label">今回の間違いは？（任意）</p>
+        <div class="mistake-type-buttons">
+          <button type="button" class="mistake-btn" data-mistake="knowledge">知らなかった</button>
+          <button type="button" class="mistake-btn" data-mistake="confused">迷った</button>
+          <button type="button" class="mistake-btn" data-mistake="careless">ケアレスミス</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-footer">
+      <button type="button" class="review-toggle-btn" id="review-toggle">♡ あとで復習</button>
+      <button type="button" class="next-btn" id="next-question" hidden>次の問題</button>
+    </div>
+  </section>
+
+  <!-- ============== 結果画面 ============== -->
+  <section id="screen-result" class="screen" hidden>
+    <h2 class="result-title">結果</h2>
+
+    <div class="result-score-card">
+      <p class="result-score" id="result-score"></p>
+      <p class="result-accuracy" id="result-accuracy"></p>
+      <p class="result-pass" id="result-pass" hidden></p>
+    </div>
+
+    <ul class="result-detail-list">
+      <li><span>間違えた問題数</span><strong id="result-wrong-count"></strong></li>
+      <li><span>あとで復習に登録した問題数</span><strong id="result-review-count"></strong></li>
+      <li><span>今回苦手だったカテゴリー</span><strong id="result-weak-category"></strong></li>
+    </ul>
+
+    <div class="result-buttons">
+      <button type="button" class="result-btn result-btn--primary" id="result-review-mistakes">間違えた問題を復習</button>
+      <button type="button" class="result-btn" id="result-home">ホームへ戻る</button>
+    </div>
+  </section>
+
+</div>
+
+<script src="js/questions.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
